@@ -28,6 +28,10 @@ module.exports.removeUsers = function(req, res) {
       throw error;
     }
 
+    if (req.signedCookies['authToken'] !== undefined) {
+      res.clearCookie('authToken');
+    }
+
     showAllUsers(res);
   });
 }

@@ -29,7 +29,9 @@ app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+//
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -42,6 +44,9 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+//Show readable HTML
+app.locals.pretty = true;
 
 // error handlers
 

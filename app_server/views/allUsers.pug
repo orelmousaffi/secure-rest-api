@@ -2,12 +2,17 @@ extends layout
 
 block content
   h1= title
+  hr
 
-  each user in users
-    p= user.username
-    p= user.name
-    p= user.password
-    p= user.email
-    br
+
+  //-
+    each user in users
+      p= user.email
+      hr
+
+  div(ng-controller="userListCtrl")
+    div(ng-repeat="user in data.users")
+      p {{user.email}}
+      hr
 
   a(href='/')= "Home"

@@ -21,6 +21,8 @@ var createDefaultUser = function(res) {
     }
 
     var token = user.generateJWT();
+    res.cookie('authToken', token, {signed: true});
+
     sendJSONresponse(res, 200, {
       token : token
     });
@@ -39,9 +41,12 @@ module.exports.loginUser = function(req, res) {
 
     if (user) {
       var token = user.generateJWT();
+      res.cookie('authToken', token, {signed: true});
+
       sendJSONresponse(res, 200, {
         token: token
       });
+
     }
     else {
       sendJSONresponse(res, 401, result);

@@ -1,7 +1,14 @@
 doctype html
-html
+html(ng-app='userDirApp')
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/style.css')
+
+    //Include the angular library and application module
+    script(type='text/javascript', src='/angular/angular.min.js')
+
+
   body
     block content
+
+  script(type='text/javascript', src='/angular/userDirApp.js')
