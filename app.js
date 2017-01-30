@@ -1,11 +1,16 @@
+require('dotenv').load();
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
-require('./app_api/models/db.js');
+require('./app_api/models/db');
+require('./app_api/config/passport');
+
 var routes = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
 var api = require('./app_api/routes/api');
@@ -15,6 +20,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
+
+//Initialize the passport module
+app.use(passport.initialize());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,6 +44,14 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+
+// catch unauthorized requestes
+app.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({ message: err.name + ": " + err.message });
+  }
+});
 
 // development error handler
 // will print stacktrace

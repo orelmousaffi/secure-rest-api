@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p= token
+
+  each user in users
+    p= user.username
+    p= user.name
+    p= user.password
+    p= user.email
+    br
+
+  a(href='/')= "Home"

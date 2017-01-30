@@ -3,3 +3,11 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  ul
+    li
+      a(href='/api')= "All Users"
+    li
+      a(href='/api/create')= "Create Users"
+    li
+      a(href='/api/delete')= "Delete All Users"

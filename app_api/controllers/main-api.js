@@ -1,11 +1,33 @@
-var jwt = require('jsonwebtoken');
+//Include all required modules
+var mongoose = require('mongoose');
 
-function generateJWT() {
-  return jwt.sign({
-    exp: 300
-  }, 'ThisIsSecret');
+//Include the Users data model
+var Users = mongoose.model('Users');
+
+function showAllUsers(res) {
+  Users.find({}).exec(function(error, users) {
+    if (error) {
+      throw error;
+    }
+
+    res.render('allUsers', {
+      title: "All Users",
+      users: users
+    });
+  });
 }
 
+
 module.exports.showAllUsers = function(req, res) {
-  res.render('allUsers', { title: "All users", token: generateJWT() });
+    showAllUsers(res);
+}
+
+module.exports.removeUsers = function(req, res) {
+  Users.remove({}, function(error) {
+    if (error) {
+      throw error;
+    }
+
+    showAllUsers(res);
+  });
 }
