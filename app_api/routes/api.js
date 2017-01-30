@@ -15,7 +15,7 @@ var authCtrl = require('../controllers/authentication');
 /* GET requestes */
 router.get('/', mainCtrl.showAllUsers);
 router.get('/create', authCtrl.registerUser);
-router.get('/delete', mainCtrl.removeUsers);
+router.get('/delete', auth, mainCtrl.removeUsers);
 
 /* POST requests */
 router.post('/login', authCtrl.loginUser);
